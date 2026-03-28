@@ -1,3 +1,5 @@
 # CMake/JUCE build outputs
 /build/
 /build-*/
+
+JUCE
