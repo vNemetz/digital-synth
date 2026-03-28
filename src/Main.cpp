@@ -19,7 +19,7 @@ public:
 
     void getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill) override {
         // Quantas amostras cada nota deve durar (ex: 0.5 segundos)
-        int samplesPerNote = (int)(currentSampleRate * 0.5);
+        int samplesPerNote = (int)(currentSampleRate * 0.2);
 
         for (auto sample = 0; sample < bufferToFill.numSamples; ++sample) {
             // Lógica do Sequenciador

@@ -19,7 +19,7 @@ add_subdirectory(JUCE)
 # 4. Criar o App
 juce_add_console_app(DigitalSynth PRODUCT_NAME "DigitalSynth")
 
-target_sources(DigitalSynth PRIVATE Main.cpp)
+target_sources(DigitalSynth PRIVATE src/Main.cpp)
 
 # 5. Vincular as bibliotecas encontradas pelo PkgConfig e os módulos JUCE
 target_link_libraries(DigitalSynth PRIVATE
