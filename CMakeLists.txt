@@ -19,7 +19,13 @@ add_subdirectory(JUCE)
 # 4. Criar o App
 juce_add_console_app(DigitalSynth PRODUCT_NAME "DigitalSynth")
 
-target_sources(DigitalSynth PRIVATE src/Main.cpp)
+# Inclui automaticamente novos arquivos de implementação em src/
+file(GLOB_RECURSE DIGITAL_SYNTH_SOURCES CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
+)
+
+target_sources(DigitalSynth PRIVATE ${DIGITAL_SYNTH_SOURCES})
 
 # 5. Vincular as bibliotecas encontradas pelo PkgConfig e os módulos JUCE
 target_link_libraries(DigitalSynth PRIVATE
@@ -32,7 +38,10 @@ target_link_libraries(DigitalSynth PRIVATE
 )
 
 # 6. Incluir os diretórios de cabeçalho (.h) das dependências
-target_include_directories(DigitalSynth PRIVATE ${DEPS_INCLUDE_DIRS})
+target_include_directories(DigitalSynth PRIVATE
+    ${DEPS_INCLUDE_DIRS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
 
 # Opcional: Macros para ajudar o JUCE no Linux
 target_compile_definitions(DigitalSynth PRIVATE 
