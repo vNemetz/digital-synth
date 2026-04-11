@@ -1,5 +1,10 @@
 #include "AudioSource/SynthAudioSource.hpp"
 #include <cmath>
+#include <cstdint>
+
+SynthAudioSource::SynthAudioSource(WaveformType waveform){
+  this->waveform = waveform;
+}
 
 void SynthAudioSource::audioDeviceIOCallbackWithContext(
   const float *const *inputChannelData,
@@ -11,9 +16,26 @@ void SynthAudioSource::audioDeviceIOCallbackWithContext(
 { 
 
   for(int i = 0; i < numSamples; i++){
-    //Set the current value of output
-    float currentSample = 0.15f * (float) std::sin(currentPhase * 2 * M_PI);
-
+    float currentSample = 0.0f;
+    if(this->waveform == WaveformType::Sine){
+      //Set the current value of output
+      currentSample = 0.15f * (float) std::sin(currentPhase * 2 * M_PI);
+    }
+    else if(this->waveform == WaveformType::Square){
+      if(currentPhase > 0.5f) currentSample = 0.15f;
+      else{currentSample = -0.15f;}
+    }
+    else if(this->waveform == WaveformType::Sawtooth){
+      currentSample = 0.15f * (float)((currentPhase * 2.0f) - 1.0f);
+    }
+    else if(this->waveform == WaveformType::Triangle){
+      if(currentPhase < 0.5f){currentSample = 0.15f * (float)((currentPhase * 4.0f) - 1.0f);}
+      else{currentSample = 0.15f* (float)(3.0f - (currentPhase * 4.0f) );}
+    }
+    else if(this->waveform == WaveformType::WhiteNoise){
+      float randomNoise = (randomGenerator.nextFloat() * 2.0f) - 1.0f;
+      currentSample = 0.15f * randomNoise;
+    }
     for(int j = 0; j < numOutputChannels; j++){
       outputChannelData[j][i] = currentSample;
     }
