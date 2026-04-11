@@ -1,6 +1,5 @@
 #include "AudioSource/SynthAudioSource.hpp"
 #include <cmath>
-#include <cstdint>
 
 SynthAudioSource::SynthAudioSource(WaveformType waveform){
   this->waveform = waveform;
