@@ -28,10 +28,10 @@ Example install command for Debian/Ubuntu:
 ```bash
 sudo apt update
 sudo apt install -y \
-	build-essential cmake pkg-config \
-	libgtk-3-dev libwebkit2gtk-4.1-dev libsoup-3.0-dev \
-	libjavascriptcoregtk-4.1-dev libcurl4-openssl-dev \
-	libasound2-dev libpulse-dev
+ build-essential cmake pkg-config \
+ libgtk-3-dev libwebkit2gtk-4.1-dev libsoup-3.0-dev \
+ libjavascriptcoregtk-4.1-dev libcurl4-openssl-dev \
+ libasound2-dev libpulse-dev
 ```
 
 ## Clone
@@ -47,6 +47,13 @@ If you already cloned without submodules:
 
 ```bash
 git submodule update --init --recursive
+```
+
+Or if you're a man that uses grown men's distro (NixOS):
+
+```bash
+git clone git@github.com:vNemetz/digital-synth.git
+nix-shell
 ```
 
 ## Build
